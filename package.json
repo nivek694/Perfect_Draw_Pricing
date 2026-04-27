@@ -1,0 +1,15 @@
+{
+  "name": "perfect_draw_javascript_project",
+  "version": "1.0.0",
+  "description": "A website that models Perfect Draw card costing",
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
