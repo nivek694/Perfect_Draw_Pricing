@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Simple Clicker</title>
+    <title>EP Calculater.</title>
     <style>
         body {
             font-family: sans-serif;
@@ -34,59 +34,73 @@
 
 <body>
 
-    <!--Buttons for adding effects and calculating costing-->
-    <div>
-        <button id="calculateButton">Calculate</button>
-        <button id="addEffectButton">Add Effect</button>
-    </div>
+    <div id="baseLayer">
 
-    <!--Display final costing-->
-    <div id="wrap">
-        <span id="finalCost">0/0</span>
+        <!--Buttons for adding effects and calculating costing-->
+        <div>
+            <button id="calculateButton">Calculate</button>
+            <button id="addEffectButton">Add Effect</button>
+        </div>
 
-    </div>
+        <div id="wrap">
+            <label for = "Card Name">Card Name:</label>
+            <input type="text" id = "Card Name">
 
-    <!--Identify which of the types of cards is being made-->
+        </div>
 
-    <!--Find card strength-->
-    <div id="wrap">
-        <center>Card Strength</center><br>
-        <input type="radio" id="weak" name="card_strength" value="weak" checked>
-        <label for="weak">weak</label>
-        <input type="radio" id="normal" name="card_strength" value="normal">
-        <label for="normal">normal</label>
-        <input type="radio" id="strong" name="card_strength" value="strong">
-        <label for="strong">strong</label>
-    </div>
 
-    <!--Find card type-->
-    <div id="wrap">
-        <center>Card Type</center>
-        <input type="radio" id="warrior" name="card_type" value="warrior" checked>
-        <label for="warrior">warrior</label>
-        <input type="radio" id="item" name="card_type" value="item">
-        <label for="item">item</label>
-        <input type="radio" id="invocation" name="card_type" value="invocation">
-        <label for="invocation">invocation</label>
-    </div>
-    <!--Find if the card is an Ace and/or is in Gimmick-->
-    <div id="wrap">
-        <center>Other</center>
-        <input type="checkbox" id="gimmick" value="gimmick">
-        <label for="gimmick">gimmick</label>
-        <input type="checkbox" id="ace" value="ace">
-        <label for="ace">ace</label>
-    </div>
 
-    <!--Find card weakness value-->
-    <div id="wrap">
-        <center>Weakness</center>
-        <input type="radio" id="no_weakness" name="weakness" value="no_weakness" checked>
-        <label for="no_weakness">no weakness</label>
-        <input type="radio" id="weakness" name="weakness" value="weakness">
-        <label for="weakness">weakness</label>
-        <input type="radio" id="sig_weakness" name="weakness" value="sig_weakness">
-        <label for="sig_weakness">sig weakness</label>
+        <!--Display final costing-->
+        <div id="wrap">
+            Total EP cost:
+            <span id="finalCost">0/0</span>
+
+        </div>
+
+        <!--Identify which of the types of cards is being made-->
+
+        <!--Find card strength-->
+        <div id="wrap">
+            <center>Card Strength</center><br>
+            <input type="radio" id="weak" name="card_strength" value="weak" checked>
+            <label for="weak">weak</label>
+            <input type="radio" id="normal" name="card_strength" value="normal">
+            <label for="normal">normal</label>
+            <input type="radio" id="strong" name="card_strength" value="strong">
+            <label for="strong">strong</label>
+        </div>
+
+        <!--Find card type-->
+        <div id="wrap">
+            <center>Card Type</center>
+            <input type="radio" id="warrior" name="card_type" value="warrior" checked>
+            <label for="warrior">warrior</label>
+            <input type="radio" id="item" name="card_type" value="item">
+            <label for="item">item</label>
+            <input type="radio" id="invocation" name="card_type" value="invocation">
+            <label for="invocation">invocation</label>
+        </div>
+        <!--Find if the card is an Ace and/or is in Gimmick-->
+        <div id="wrap">
+            <center>Other</center>
+            <input type="checkbox" id="gimmick" value="gimmick">
+            <label for="gimmick">gimmick</label>
+            <input type="checkbox" id="ace" value="ace">
+            <label for="ace">ace</label>
+        </div>
+
+        <!--Find card weakness value-->
+        <div id="wrap">
+            <center>Weakness</center>
+            <input type="radio" id="no_weakness" name="weakness" value="no_weakness" checked>
+            <label for="no_weakness">no weakness</label>
+            <input type="radio" id="weakness" name="weakness" value="weakness">
+            <label for="weakness">weakness</label>
+            <input type="radio" id="sig_weakness" name="weakness" value="sig_weakness">
+            <label for="sig_weakness">sig weakness</label>
+        </div>
+
+
     </div>
 
 
@@ -98,6 +112,8 @@
         const display = document.getElementById('counter');
         const calculateButton = document.getElementById('calculateButton');
         const addEffectButton = document.getElementById("addEffectButton");
+        
+        
         //const incrementer = document.getElementById("counter_increment");
         var effect_boxes = [];
         const INVOCATION = "invocation";
@@ -188,7 +204,7 @@
             var consistent_value = 0;
 
             consistent_inputs.forEach(element => {
-                if (element.checked){
+                if (element.checked) {
                     consistent_value++;
                 }
             });
@@ -253,6 +269,10 @@
 
         addEffectButton.addEventListener("click", () => {
 
+            const baseLayer = document.getElementById("baseLayer");
+
+            
+
             //TODO: Add way to remove an effect
 
             const newEffectDiv = document.createElement("div");
@@ -313,7 +333,8 @@
             effectTextDiv.appendChild(effectText);
             newEffectDiv.appendChild(effectTextDiv)
 
-            document.body.appendChild(newEffectDiv);
+            //document.body.appendChild(newEffectDiv); //For appending to the entire document
+            baseLayer.appendChild(newEffectDiv); //For appending to the base layer.
 
         });
     </script>
