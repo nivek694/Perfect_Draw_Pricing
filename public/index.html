@@ -13,6 +13,18 @@
 </head>
 <body>
 
+    <!--Buttons for adding effects and calculating costing-->
+    <div>
+        <button id="calculateButton">Calculate</button>
+        <button id="addEffectButton">Add Effect</button>
+    </div>
+
+    <!--Display final costing-->
+    <div id="wrap">
+        <span id="finalCost">0/0</span>
+
+    </div>
+
     <!--Identify which of the types of cards is being made-->
 
     <!--Find card strength-->
@@ -56,13 +68,15 @@
         <label for="sig_weakness">sig weakness</label>
     </div>
 
-    <button id="clickBtn">calculate</button>
+    
+    
 
     <script>
         let count = 0;
         let ep_budget = 3;
         const display = document.getElementById('counter');
-        const button = document.getElementById('clickBtn');
+        const calculateButton = document.getElementById('calculateButton');
+        const addEffectButton = document.getElementById("addEffectButton");
         //const incrementer = document.getElementById("counter_increment");
         effect_boxes = []
         const INVOCATION = "invocation";
@@ -73,12 +87,16 @@
         const WEAK = "weak";
         const WEAKNESS = "weakness"
         const SIG_WEAKNESS = "sig_weakness"
+        var effect_elements = [];
 
 
 
 
-
-        function get_ep_value(strength, type, weakness, gimmick, ace){
+        /**
+         * Returns the ammount of EP that a given card will have access to.
+         *@returns {number} the amount of EP that is avalible
+         */
+        function getEpBudget({strength, type, weakness, gimmick, ace}){
             current_ep = 0;
             //Get 1 EP from gimmick
             if (gimmick){
@@ -116,23 +134,75 @@
                 return current_ep;
             }
 
-        } 
+        }
+
+        /**
+         *@returns {number} the EP cost of the effects found in a single element
+         */
+        function getEffectEpCost(element){
+
+        }
+
+        /**
+         * ltterates through a given list of elements and finds their total EP cost
+         * 
+         *@returns {number} equal to the total EP cost of the effects in the elements
+         */
+        function getTotalEpCost(elements){
+            //todo: Implement
+            return "test_value"
+
+            //TODO: Itterate through the list of elements and call getEffectEpCost on each of them to find and total the ep cost of all effects
+        }
+        /**
+         * Gets the final EP cost and amount of EP that can be spent, and returns this information as a string
+         * 
+         * @returns {string} in the form of <total cost>/<total budget>
+         */
+        function getFinalPricing({strength, type, weakness, gimmick, ace, elements}) {
+            //todo: Implement this.
+            
+            return getTotalEpCost(elements) + "/" + getEpBudget({strength:strength, type:type, weakness:weakness, gimmick:gimmick, ace:ace});
+        }
 
 
-
-        button.addEventListener('click', () => {
+        /**
+         * Edits finalCostDisplay to show the cost of all effects and the avalible budget.
+         */
+        calculateButton.addEventListener('click', () => {
             const selected_strength = document.querySelector('input[name=card_strength]:checked').value;
             const selected_type = document.querySelector('input[name=card_type]:checked').value;
             const selected_weeakness = document.querySelector('input[name=weakness]:checked').value;
             const gimmick_used = document.getElementById('gimmick').checked;
             const ace_used = document.getElementById("ace").checked;
+
+            const finalCostDisplay = document.getElementById("finalCost");
             
             //increment_value = Number(incrementer.value);
             //count += increment_value;
             //display.innerText = count;
             console.log(selected_strength)
             console.log(selected_type)
-            console.log("Current EP = " + get_ep_value(selected_strength, selected_type, selected_weeakness, gimmick_used, ace_used))
+            
+            
+
+
+            //TODO: Add list of elements to find the spent EP to pricing_data
+
+            var pricing_data = {strength:selected_strength,
+                type:selected_type,
+                weakness:selected_weeakness,
+                gimmick:gimmick_used,
+                ace:ace_used
+            }
+
+            console.log(pricing_data)
+            console.log("Current EP = " + getEpBudget(pricing_data))
+
+            
+
+            finalCostDisplay.textContent = getFinalPricing(pricing_data);
+
         });
     </script>
 </body>
