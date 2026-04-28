@@ -417,11 +417,6 @@
             weaknessDiv.appendChild(sigWeaknessInput);
             weaknessDiv.appendChild(sigWeaknessLabel);
             
-            
-            
-            
-            
-            
             newEffectDiv.appendChild(weaknessDiv);
 
 
@@ -452,6 +447,19 @@
 
             effectTextDiv.appendChild(effectText);
             newEffectDiv.appendChild(effectTextDiv)
+
+
+
+            //Create Delete Button
+
+            const deleteButton = document.createElement("button");
+
+            deleteButton.textContent = "Delete Effect"
+            deleteButton.onclick = function(e) {baseLayer.removeChild(newEffectDiv)} //NOTE: This needs to be changed if we swap from baseLayer to the document body.
+
+
+
+            newEffectDiv.appendChild(deleteButton);
 
             //document.body.appendChild(newEffectDiv); //For appending to the entire document
             baseLayer.appendChild(newEffectDiv); //For appending to the base layer.
