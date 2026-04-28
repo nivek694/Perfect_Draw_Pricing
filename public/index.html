@@ -90,6 +90,9 @@
         </div>
 
         <!--Find card weakness value-->
+
+
+        <!-- This has been depricated. This is now in effects
         <div id="wrap">
             <center>Weakness</center>
             <input type="radio" id="no_weakness" name="weakness" value="no_weakness" checked>
@@ -99,6 +102,8 @@
             <input type="radio" id="sig_weakness" name="weakness" value="sig_weakness">
             <label for="sig_weakness">sig weakness</label>
         </div>
+
+        -->
 
 
     </div>
@@ -203,7 +208,8 @@
             //get Powerful value
             const powerful_inputs = document.getElementsByName("powerful");
             const versatile_inputs = document.getElementsByName("versatile");
-            const consistent_inputs = document.getElementsByName("consistent")
+            const consistent_inputs = document.getElementsByName("consistent");
+            const rebate_inputs = document.getElementsByName("rebate")
 
             var powerful_value = 0;
 
@@ -220,6 +226,12 @@
                 versatile_value += Number(element.value);
             });
 
+            rebate_value = 0;
+            //Get EP discount from rebates
+            rebate_inputs.forEach(element => {
+                rebate_value += Number(element.value);
+            });
+
 
             //Get EP cost of Consistent
             var consistent_value = 0;
@@ -232,7 +244,7 @@
 
 
 
-            return powerful_value + versatile_value + consistent_value;
+            return powerful_value + versatile_value + consistent_value - rebate_value;
 
         }
         /**
@@ -321,6 +333,19 @@
 
             versatileDiv.appendChild(versatileInput);
             newEffectDiv.appendChild(versatileDiv);
+
+
+            //Create Rebate Element
+            rebateDiv = document.createElement("div");
+            rebateDiv.textContent = "Rebate: "
+            var rebateInput = document.createElement("input");
+            rebateInput.placeholder = "Rebate"
+            rebateInput.type = "number"
+            rebateInput.name = "rebate"
+            rebateInput.value = 0
+
+            rebateDiv.appendChild(rebateInput);
+            newEffectDiv.appendChild(rebateDiv);
 
 
             //Create consistent element
