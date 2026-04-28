@@ -87,6 +87,8 @@
             <label for="gimmick">gimmick</label>
             <input type="checkbox" id="ace" value="ace">
             <label for="ace">ace</label>
+            <input type = "number" id = "arbitrary ep" name = "arbitrary ep" value="0">
+            <label for = "arbitrary ep">Arbitrary EP budget (God Card. ETC)</label>
         </div>
 
         <!--Find card weakness value-->
@@ -130,6 +132,7 @@
         const NO_WEAKNESS = "no_weakness"
         const WEAKNESS = "weakness"
         const SIG_WEAKNESS = "sig_weakness"
+        
         var labelNumber = 0; //Used for making a unique RadioButton group for each effect.
 
 
@@ -141,6 +144,7 @@
          *@returns {number} the amount of EP that is avalible
          */
         function getEpBudget({ strength, type, weakness, sigWeakness, gimmick, ace }) {
+        
             current_ep = 0;
             //Get 1 EP from gimmick
             if (gimmick) {
@@ -151,14 +155,7 @@
                 current_ep += 1
             }
 
-            //Calculate EP from weakness
-            /*
-            if (weakness == WEAKNESS) {
-                current_ep += 1;
-            } else if (weakness == SIG_WEAKNESS) {
-                current_ep += 2;
-            }
-            */
+            
 
             if (weakness.length >= 2 || sigWeakness.length >= 1){
                 current_ep += 2
@@ -166,8 +163,12 @@
                 current_ep += 1
             }
 
-            console.log(sigWeakness);
-            console.log(weakness);
+            
+            arbatrary_ep = Number(document.getElementById("arbitrary ep").value)
+            if (arbatrary_ep != null){
+                current_ep += arbatrary_ep
+            }
+            //console.log(arbatrary_ep)
 
 
             //Invocations have 3 EP
@@ -200,7 +201,7 @@
          * 
          *@returns {number} equal to the total EP cost of the effects in the elements
          */
-        function getTotalEpCost(elements) {
+        function getTotalEpCost() {
             //todo: Implement
 
 
@@ -254,7 +255,7 @@
          */
         function getFinalPricing({ strength, type, weakness, sigWeakness, gimmick, ace, elements }) {
 
-            return getTotalEpCost(elements) + "/" + getEpBudget({ strength: strength, type: type, weakness: weakness, sigWeakness:sigWeakness, gimmick: gimmick, ace: ace });
+            return getTotalEpCost() + "/" + getEpBudget({ strength: strength, type: type, weakness: weakness, sigWeakness:sigWeakness, gimmick: gimmick, ace: ace });
         }
 
         /**
