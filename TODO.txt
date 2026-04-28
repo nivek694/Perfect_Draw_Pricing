@@ -1,0 +1,7 @@
+TODO
+
+Move weaknesses to effects
+Make Delete Effects option
+Add rebates. (Focus, Hard Work, Resources. Etc.)
+Add arbitrary Add EP option (For things like God Card.)
+Add CSS Style Sheet
