@@ -87,7 +87,7 @@
             <label for="gimmick">gimmick</label>
             <input type="checkbox" id="ace" value="ace">
             <label for="ace">ace</label>
-            <input type = "number" id = "arbitrary ep" name = "arbitrary ep" value="0">
+            <input type = "number" id = "arbitrary ep" name = "arbitrary ep" value="0", style = "field-sizing: content;">
             <label for = "arbitrary ep">Arbitrary EP budget (God Card. ETC)</label>
         </div>
 
@@ -455,6 +455,7 @@
             const deleteButton = document.createElement("button");
 
             deleteButton.textContent = "Delete Effect"
+            //deleteButton.style.float = "right" //Causes delete button to be BELOW effect
             deleteButton.onclick = function(e) {baseLayer.removeChild(newEffectDiv)} //NOTE: This needs to be changed if we swap from baseLayer to the document body.
 
 
