@@ -1,16 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Simple Clicker</title>
     <style>
-        body { font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; }
-        #counter { font-size: 3rem; margin-bottom: 20px; }
-        button { padding: 10px 20px; font-size: 1.2rem; cursor: pointer; }
-        #wrap {border: 1px solid black; border-collapse: collapse;}
-        
+        body {
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        #counter {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        #wrap {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
     </style>
 </head>
+
 <body>
 
     <!--Buttons for adding effects and calculating costing-->
@@ -68,8 +89,8 @@
         <label for="sig_weakness">sig weakness</label>
     </div>
 
-    
-    
+
+
 
     <script>
         let count = 0;
@@ -78,7 +99,7 @@
         const calculateButton = document.getElementById('calculateButton');
         const addEffectButton = document.getElementById("addEffectButton");
         //const incrementer = document.getElementById("counter_increment");
-        effect_boxes = []
+        var effect_boxes = [];
         const INVOCATION = "invocation";
         const ITEM = "item";
         const WARRIOR = "warrior";
@@ -87,7 +108,7 @@
         const WEAK = "weak";
         const WEAKNESS = "weakness"
         const SIG_WEAKNESS = "sig_weakness"
-        var effect_elements = [];
+
 
 
 
@@ -96,61 +117,85 @@
          * Returns the ammount of EP that a given card will have access to.
          *@returns {number} the amount of EP that is avalible
          */
-        function getEpBudget({strength, type, weakness, gimmick, ace}){
+        function getEpBudget({ strength, type, weakness, gimmick, ace }) {
             current_ep = 0;
             //Get 1 EP from gimmick
-            if (gimmick){
+            if (gimmick) {
                 current_ep += 1;
             }
-            if (ace){
+            if (ace) {
                 current_ep += 1
             }
-            if (weakness == WEAKNESS){
+            if (weakness == WEAKNESS) {
                 current_ep += 1;
-            }else if (weakness == SIG_WEAKNESS){
+            } else if (weakness == SIG_WEAKNESS) {
                 current_ep += 2;
             }
 
 
             //Invocations have 3 EP
-            if (type == INVOCATION){
+            if (type == INVOCATION) {
                 current_ep += 3;
                 return current_ep;
             }
 
 
             //Get EP from item strength
-            if (strength == WEAK){
+            if (strength == WEAK) {
                 current_ep += 3
-            } else if (strength == NORMAL){
+            } else if (strength == NORMAL) {
                 current_ep += 2
-            } else{
+            } else {
                 current_ep += 0;
             }
 
-            if (type == ITEM){
+            if (type == ITEM) {
                 return current_ep += 1;
-            } else{
+            } else {
                 return current_ep;
             }
 
         }
 
-        /**
-         *@returns {number} the EP cost of the effects found in a single element
-         */
-        function getEffectEpCost(element){
-
-        }
 
         /**
          * ltterates through a given list of elements and finds their total EP cost
          * 
          *@returns {number} equal to the total EP cost of the effects in the elements
          */
-        function getTotalEpCost(elements){
+        function getTotalEpCost(elements) {
             //todo: Implement
-            return "test_value"
+
+
+
+            //get Powerful value
+            const powerful_inputs = document.getElementsByName("powerful");
+            const versatile_inputs = document.getElementsByName("versatile");
+            const consistent_inputs = document.getElementsByName("consistent")
+
+            var powerful_value = 0;
+
+            powerful_inputs.forEach(element => {
+                powerful_value += Number(element.value);
+            });
+
+            var versatile_value = 0;
+
+            versatile_inputs.forEach(element => {
+                versatile_value += Number(element.value);
+            });
+
+            var consistent_value = 0;
+
+            consistent_inputs.forEach(element => {
+                if (element.checked){
+                    consistent_value++;
+                }
+            });
+
+
+
+            return powerful_value + versatile_value + consistent_value;
 
             //TODO: Itterate through the list of elements and call getEffectEpCost on each of them to find and total the ep cost of all effects
         }
@@ -159,12 +204,11 @@
          * 
          * @returns {string} in the form of <total cost>/<total budget>
          */
-        function getFinalPricing({strength, type, weakness, gimmick, ace, elements}) {
+        function getFinalPricing({ strength, type, weakness, gimmick, ace, elements }) {
             //todo: Implement this.
-            
-            return getTotalEpCost(elements) + "/" + getEpBudget({strength:strength, type:type, weakness:weakness, gimmick:gimmick, ace:ace});
-        }
 
+            return getTotalEpCost(elements) + "/" + getEpBudget({ strength: strength, type: type, weakness: weakness, gimmick: gimmick, ace: ace });
+        }
 
         /**
          * Edits finalCostDisplay to show the cost of all effects and the avalible budget.
@@ -177,33 +221,102 @@
             const ace_used = document.getElementById("ace").checked;
 
             const finalCostDisplay = document.getElementById("finalCost");
-            
+
             //increment_value = Number(incrementer.value);
             //count += increment_value;
             //display.innerText = count;
             console.log(selected_strength)
             console.log(selected_type)
-            
-            
+
+
 
 
             //TODO: Add list of elements to find the spent EP to pricing_data
 
-            var pricing_data = {strength:selected_strength,
-                type:selected_type,
-                weakness:selected_weeakness,
-                gimmick:gimmick_used,
-                ace:ace_used
+            var pricing_data = {
+                strength: selected_strength,
+                type: selected_type,
+                weakness: selected_weeakness,
+                gimmick: gimmick_used,
+                ace: ace_used
             }
 
             console.log(pricing_data)
             console.log("Current EP = " + getEpBudget(pricing_data))
 
-            
+
 
             finalCostDisplay.textContent = getFinalPricing(pricing_data);
 
         });
+
+
+        addEffectButton.addEventListener("click", () => {
+
+            //TODO: Add way to remove an effect
+
+            const newEffectDiv = document.createElement("div");
+
+
+            newEffectDiv.textContent = "Effect";
+            newEffectDiv.id = "wrap"
+
+            //Create Powerful Element
+            powerDiv = document.createElement("div");
+            powerDiv.textContent = "Powerful: "
+            var powerInput = document.createElement("input");
+            powerInput.placeholder = "Powerful"
+            powerInput.type = "number"
+            powerInput.name = "powerful"
+            powerInput.value = 0
+
+            powerDiv.appendChild(powerInput);
+            newEffectDiv.appendChild(powerDiv);
+
+
+            //Create Versitile Element
+            versatileDiv = document.createElement("div");
+            versatileDiv.textContent = "Versatile: "
+            var versatileInput = document.createElement("input");
+            versatileInput.placeholder = "Versatile"
+            versatileInput.type = "number"
+            versatileInput.name = "versatile"
+            versatileInput.value = 0
+
+            versatileDiv.appendChild(versatileInput);
+            newEffectDiv.appendChild(versatileDiv);
+
+
+            //Create consistent element
+            consistentDiv = document.createElement("div");
+            consistentDiv.textContent = "Consistent: "
+            var consistentInput = document.createElement("input");
+            consistentInput.placeholder = "Versatile"
+            consistentInput.type = "checkbox"
+            consistentInput.name = "consistent"
+
+            consistentDiv.appendChild(consistentInput);
+            newEffectDiv.appendChild(consistentDiv);
+
+            //Create effect text. This will not be sent anywhere, it is just visual so we can see what effect is being priced.
+            effectTextDiv = document.createElement("div");
+            effectTextDiv.textContent = "Effect Text: "
+
+            var effectText = document.createElement("textarea");
+            effectText.style.fieldSizing = 'content';
+            effectText.placeholder = "Insert text of your effect here"
+            effectText.wrap = "soft"
+            effectText.style.maxWidth = "50%";
+            effectText.style.boxSizing = "border-box"
+            effectText.style.resize = "vertical"
+
+            effectTextDiv.appendChild(effectText);
+            newEffectDiv.appendChild(effectTextDiv)
+
+            document.body.appendChild(newEffectDiv);
+
+        });
     </script>
 </body>
+
 </html>
