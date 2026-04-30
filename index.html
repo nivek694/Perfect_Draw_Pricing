@@ -296,6 +296,27 @@
 
 
         /**
+         * Creates the radio buttons used for pricing effects
+         * 
+         * @retuens A dictionary with Input being the radio button and Label being the assoiated text for labeling the button.
+         */
+        function createRadioButton({id, name, value, checked, innerText}){
+
+            const Input = document.createElement("input");
+            Input.type = "radio";
+            Input.id = id;
+            Input.name = name;
+            Input.value = value
+            Input.checked = checked;
+
+            const Label = document.createElement("label");
+            Label.htmlFor = id;
+            Label.innerText = innerText;
+
+            return {Input: Input, Label: Label};
+
+        }
+        /**
          * Create a new effect when the add effect button is clicked. This is added to the bottom of the baseLayer.
          */
         addEffectButton.addEventListener("click", () => {
@@ -314,6 +335,7 @@
             newEffectDiv.id = "wrap"
 
             //Create Powerful Element
+            
             powerDiv = document.createElement("div");
             powerDiv.textContent = "Powerful: "
             var powerInput = document.createElement("input");
@@ -321,6 +343,9 @@
             powerInput.type = "number"
             powerInput.name = "powerful"
             powerInput.value = 0
+            
+
+
 
             powerDiv.appendChild(powerInput);
             newEffectDiv.appendChild(powerDiv);
@@ -370,6 +395,8 @@
             
 
             //No Weakness
+
+            /*
             const noWeaknessInput = document.createElement("input");
             noWeaknessInput.type = "radio";
             noWeaknessInput.id = NO_WEAKNESS;
@@ -380,13 +407,20 @@
             const noWeaknessLabel = document.createElement("label");
             noWeaknessLabel.htmlFor = noWeaknessInput.id;
             noWeaknessLabel.innerText = "No Weakness"
+            */
 
-            weaknessDiv.appendChild(noWeaknessInput);
-            weaknessDiv.appendChild(noWeaknessLabel);
+            const no_weakness_button = createRadioButton({id:NO_WEAKNESS, name: "weakness" + labelNumber,value:NO_WEAKNESS,checked:true, innerText:"No Weakness"})
+
+
+
+            weaknessDiv.appendChild(no_weakness_button.Input);
+            weaknessDiv.appendChild(no_weakness_button.Label);
+            
             
             
             
             //Standard Weakness
+            /*
             const weaknessInput = document.createElement("input");
             weaknessInput.type = "radio";
             weaknessInput.id = WEAKNESS;
@@ -397,14 +431,19 @@
             const weaknessLabel = document.createElement("label");
             weaknessLabel.htmlFor = weaknessInput.id;
             weaknessLabel.innerText = "Weakness"
+            */
 
-            weaknessDiv.appendChild(weaknessInput);
-            weaknessDiv.appendChild(weaknessLabel);
+
+            const weakness_button = createRadioButton({id:WEAKNESS, name: "weakness" + labelNumber,value:WEAKNESS,checked:false, innerText:"Weakness"})
+
+            weaknessDiv.appendChild(weakness_button.Input);
+            weaknessDiv.appendChild(weakness_button.Label);
             
             
             
             
             //Signifigant Weakness
+            /*
             const sigWeaknessInput = document.createElement("input");
             sigWeaknessInput.type = "radio";
             sigWeaknessInput.id = SIG_WEAKNESS;
@@ -415,10 +454,13 @@
             const sigWeaknessLabel = document.createElement("label");
             sigWeaknessLabel.htmlFor = sigWeaknessInput.id;
             sigWeaknessLabel.innerText = "Significant Weakness"
+            */
 
             
-            weaknessDiv.appendChild(sigWeaknessInput);
-            weaknessDiv.appendChild(sigWeaknessLabel);
+            const sig_weakness_button = createRadioButton({id:SIG_WEAKNESS, name: "weakness" + labelNumber,value:SIG_WEAKNESS,checked:false, innerText:"Significant Weakness"})
+
+            weaknessDiv.appendChild(sig_weakness_button.Input);
+            weaknessDiv.appendChild(sig_weakness_button.Label);
             
             newEffectDiv.appendChild(weaknessDiv);
 
